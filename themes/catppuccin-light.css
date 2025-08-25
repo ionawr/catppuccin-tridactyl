@@ -1,0 +1,236 @@
+/*
+ * Forked from AyuDark
+ * AyuDark: v0.2 (https://github.com/tridactyl/tridactyl/discussions/4621)
+ * Gist: https://gist.github.com/WirlyWirly/e875ec0a38728d496867e0a9c6ee968c
+ */
+
+@font-face {
+  font-family: "Iosevka Nerd Font Mono", monospace;
+  font-style: normal;
+  font-weight: 400;
+  /* We're not specifying a src here as we expect the font to be installed on the system */
+}
+
+:root {
+  --ctpTextNormal: #0b0b0b;
+  --ctpTextComment: #0b0b0b;
+  --ctpBackground: #d8d8d8;
+  --ctpSelection: #8d8d8d;
+  --ctpBlue: #1e66f5;
+  --ctpOrange: #fe640b;
+  --ctpGreen: #40a02b;
+  --ctpPurple: #8839ef;
+
+  /* Ex-Command Line */
+  --tridactyl-font-family: "Iosevka Nerd Font Mono", monospace;
+  --tridactyl-bg: var(--ctpBackground);
+  --tridactyl-fg: var(--ctpTextNormal);
+  --tridactyl-border-radius: 4px;
+  --tridactyl-cmdl-font-size: 1.5rem;
+  --tridactyl-cmdl-bg: var(--ctpBackground);
+  --tridactyl-cmplt-option-height: 1.5em;
+
+  --tridactyl-header-font-size: 0.8rem;
+  --tridactyl-header-font-weight: 700;
+
+  /* Ex-Command Tab options */
+  --tridactyl-of-fg: var(--ctpTextNormal);
+  --tridactyl-of-bg: var(--ctpBackground);
+  --tridactyl-url-fg: var(--ctpBackground);
+  --tridactyl-url-bg: none;
+
+  /* Mode indicator */
+  --tridactyl-status-fg: var(--ctpTextNormal);
+  --tridactyl-status-font-size: 14px;
+  --tridactyl-status-font-family: var(--tridactyl-font-family);
+  --tridactyl-status-font-bg: var(--ctpBackground);
+  --tridactyl-status-border: 2px solid var(--ctpTextNormal);
+  --tridactyl-status-border-radius: 4px;
+
+  /* Hint Characters */
+  --tridactyl-hintspan-fg: var(--ctpBackground);
+  --tridactyl-hintspan-bg: none;
+
+  /* Hint Element Highlights */
+  --tridactyl-hint-active-fg: none;
+  --tridactyl-hint-active-bg: none;
+  --tridactyl-hint-active-outline: none;
+  --tridactyl-hint-bg: none;
+  --tridactyl-hint-outline: none;
+}
+
+:root.TridactylOwnNamespace {
+  scrollbar-width: thin;
+}
+
+:root.TridactylOwnNamespace a {
+  color: var(--ctpSelection);
+}
+
+:root.TridactylOwnNamespace code {
+  color: var(--ctpTextNormal);
+  background-color: var(--ctpSelection);
+  padding: 3px 7px;
+}
+
+:root #command-line-holder {
+  order: 1;
+}
+
+:root #command-line-holder,
+:root #tridactyl-input {
+  font-family: var(--tridactyl-font-family);
+  border: 2px solid #f4f4f4 !important;
+  border-radius: var(--tridactyl-border-radius) !important;
+  color: var(--ctpTextNormal);
+  font-size: 1.25rem;
+  width: 100%;
+  /* width: 98%; */
+  padding: 0.25rem;
+  box-sizing: border-box;
+}
+
+:root #tridactyl-input {
+  border: none !important;
+}
+
+:root #tridactyl-colon::before {
+  content: "";
+}
+
+:root #completions table {
+  font-weight: 400;
+  table-layout: fixed;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+:root #completions > div {
+  max-height: calc(20 * var(--tridactyl-cmplt-option-height));
+  min-height: calc(10 * var(--tridactyl-cmplt-option-height));
+}
+
+:root #completions {
+  border: 2px solid #0b0b0b !important;
+  /* border: none !important; */
+  font-family: var(--tridactyl-font-family);
+  order: 2;
+  margin-top: 10px;
+  border-radius: var(--tridactyl-border-radius);
+  box-sizing: border-box;
+}
+
+:root #completions .HistoryCompletionSource table {
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+:root #completions .BufferCompletionSource table {
+  width: unset;
+  font-size: unset;
+  border-spacing: unset;
+  table-layout: unset;
+}
+
+:root #completions table tr .title {
+  width: 50%;
+}
+
+:root #completions tr .documentation {
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: ellipsis;
+}
+
+:root #completions .sectionHeader {
+  background: transparent;
+  padding: 1rem 1rem 0.4rem !important;
+  color: var(--ctpPurple);
+  font-family: var(--tridactyl-font-family);
+}
+
+:root #cmdline_iframe {
+  position: fixed !important;
+  bottom: unset;
+  top: 25% !important;
+  z-index: 2147483647 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(50%, 800px) !important;
+  max-width: 800px !important;
+  filter: drop-shadow(0px 0px 10px rgb(12, 16, 23)) !important;
+  color-scheme: only light; /* Prevent Firefox from adding a white background on dark-mode sites */
+  padding-bottom: 2px !important; /* Ensure bottom border is fully displayed */
+}
+
+:root .TridactylStatusIndicator {
+  font-family: var(--tridactyl-font-family) !important;
+  position: fixed !important;
+  bottom: 4px !important;
+  right: 4px !important;
+  font-weight: 700 !important;
+  padding: 4px !important;
+  text-transform: uppercase !important;
+}
+
+:root #completions tr.option {
+  color: var(--ctpTextNormal);
+  font-size: 1.05rem;
+}
+
+:root #completions tr.focused {
+  background-color: var(--ctpSelection) !important;
+}
+
+:root #completions tr.SettingsCompletionOption.option > td.title {
+  width: 20%;
+}
+
+:root #completions td.excmd,
+:root #completions td.name,
+:root #completions td.value,
+:root #completions td.title {
+  /* Ex: Table cell types to display as orange */
+  color: var(--ctpBlue);
+}
+
+:root #completions tr.BindingsCompletionOption.option > td.type,
+:root #completions tr.TabHistoryCompletionOption.option > td.time,
+:root #completions tr.SettingsCompletionOption.option > td.type {
+  /* Ex: Table cell types to display as grey */
+  color: var(--ctpTextComment);
+}
+
+:root #completions tr.BindingsCompletionOption.option > td.content,
+:root #completions tr.SettingsCompletionOption.option > td.content {
+  /* Ex: Table cell types to display as purple */
+  color: var(--ctpPurple);
+}
+
+:root #completions tr.HistoryCompletionOption.option > td.title,
+:root #completions tr.BufferCompletionOption.option > td.title,
+:root #completions tr.BmarkCompletionOption.option > td.title,
+:root #completions tr.TabHistoryCompletionOption.option > td.title,
+:root #completions tr.FileSystemCompletionOption.option > td.value,
+:root #completions tr.BufferAllCompletionOption > td.title {
+  /* Ex: Normal Text Color for some submenus */
+  color: var(--ctpTextNormal);
+}
+
+:root span.TridactylHint {
+  font-size: 12px !important;
+  font-family: "Iosevka Nerd Font Mono", monospace !important;
+  font-weight: 800 !important;
+  line-height: 1.5 !important;
+  padding: 0px 2px 0px 2px !important;
+  border-radius: 2px !important;
+  border: 2px solid var(--ctpBackground) !important;
+  background: var(--ctpTextNormal) !important;
+  color: var(
+    --ctpBackground
+  ) !important; /* Ensuring text is visible against the gray background */
+  /* background: linear-gradient(var(--ctpPurple), #7E6399) !important; */
+  /* background: linear-gradient(var(--ctpBlue), #479BCC) !important; */
+  /* background: linear-gradient(#fcfd00, #fdb601) !important; */
+}
